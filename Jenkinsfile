@@ -19,7 +19,7 @@ pipeline {
         stage('Setup') {
             steps {
                 sh 'python3 -m venv venv'
-                sh 'bash -c "source venv/bin/activate && pip install -r requirements.txt'
+                sh 'bash -c "source venv/bin/activate && pip install -r requirements.txt"'
             }
             
         }
