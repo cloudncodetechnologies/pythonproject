@@ -10,7 +10,19 @@ pipeline {
     stages {
 
 
-        stage('test') {
+        stage('Git Checkout') {
+            steps {
+                 git branch: 'main', credentialsId: '1b256f95-2b17-4dfa-b6a6-9be1b3d86afd', url: 'https://github.com/cloudncodetechnologies/pythonproject.git'
+            }
+            
+        }
+        stage('Setup') {
+            steps {
+                 sh 'pip install -r requirements.txt'
+            }
+            
+        }
+        stage('Unit test') {
             when {
                 expression {
                     params.RUN_TESTS == true
@@ -18,16 +30,10 @@ pipeline {
             }
             steps {
                 echo "testing application"
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo "deploying to ${params.ENVIRONMENT} environment"
+                sh "pytest"
                 
             }
-        }    
-
-        
+        }         
             
     }
 }
