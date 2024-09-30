@@ -31,7 +31,7 @@ pipeline {
             }
             steps {
                 echo "testing application"
-                sh "pytest"
+                sh 'bash -c "source venv/bin/activate && pytest"'
                 
             }
         }         
