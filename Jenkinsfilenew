@@ -5,7 +5,7 @@ pipeline {
         booleanParam(name: 'RUN_TESTS', defaultValue: true, description: "Run Tests in pipeline")
     
     }
-    encironment {
+    environment {
        SERVER_IP = credentials('prod-server-ip')
     }
 
