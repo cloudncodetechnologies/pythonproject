@@ -75,7 +75,7 @@ pipeline {
                         string(credentialsId: 'prod-server-ip', variable: 'SERVER_IP')
                     ]) {
                         sh '''
-                            ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} << EOF
+                            ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} <<EOF
                             docker login -u ${USERNAME} -p ${PASSWORD}
 			    echo "Login Successfull"
                             docker pull ${IMAGE_TAG}
