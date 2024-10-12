@@ -77,9 +77,17 @@ pipeline {
                         sh '''
                             ssh -i ${SSH_KEY} -o StrictHostKeyChecking=no ubuntu@${SERVER_IP} << EOF
                             docker login -u ${USERNAME} -p ${PASSWORD}
+			    echo "Login Successfull"
                             docker pull ${IMAGE_TAG}
+			    echo "Pull complete"
+                            docker ps
+       			    echo "Stopping container"
                             docker stop pythonproject || true
+			    docker ps 
+                            echo "Removing container"
                             docker rm pythonproject || true
+			    docker ps 
+                            echo "Docker run"
                             docker run -d --name pythonproject -p 80:80 ${IMAGE_TAG}
                             docker image prune -f
                             EOF
