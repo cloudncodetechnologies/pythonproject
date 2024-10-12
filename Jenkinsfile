@@ -50,7 +50,28 @@ pipeline {
 		        echo "Login Successful"
 		    }
 	    }
-    } 
+   	}
+
+
+        stage('Building Docker image') {
+		steps {
+			sh 'docker build -t ${IMAGE_TAG}'
+			echo "Docker image build successfull"
+			sh 'docker image ls'
+		}
+	}
+
+	stage('Pushing Docker image') {
+		steps {
+			sh 'docker push ${IMAGE_TAG}'
+            		echo "Docker image push successfully"
+		}
+	}
+}
+
+	
+	
+    }
             
   }
 }
