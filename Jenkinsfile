@@ -6,6 +6,12 @@ pipeline {
     
     }
 
+    environment {
+	    IMAGE_NAME = 'cloudncodetechnologies/pythonproject'
+	    IMAGE_TAG = "${IMAGE_NAME}:${env.GIT_COMMIT}"
+	
+    }
+
 
     stages {
 
@@ -34,7 +40,17 @@ pipeline {
                 sh 'bash -c "source venv/bin/activate && pytest"'
                 
             }
-        }         
+        } 
+
+        stage('Login to Docker hub') {
+	        steps {
+		        withCredentials([usernamePassword(credentialsId: 'docker-creds',
+		        usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+		        sh 'echo ${PASSWORD} | docker login -u ${USERNAME} --password-stdin' 
+		        echo "Login Successful"
+		    }
+	    }
+    } 
             
-    }
+  }
 }
